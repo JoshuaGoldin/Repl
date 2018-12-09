@@ -1,0 +1,25 @@
+from __future__ import division
+from sklearn import datasets
+from sklearn import svm
+from sklearn import tree
+from sklearn.ensemble import RandomForestClassifier
+from sklearn.model_selection import train_test_split as tts
+wine=datasets.load_wine()
+features=wine.data
+label=wine.target
+#print features
+#print label
+train_feats, test_feats, train_label, test_label=tts(features, label, test_size=0.2)
+clf=svm.SVC(kernel='linear')
+#clf=tree.DecisionTreeClassifier()
+#clf=RandomForestClassifier()
+clf.fit(train_feats, train_label)
+pred=clf.predict(test_feats)
+print pred
+#y=f(x)
+#print clf
+score=0
+for i in range(len(pred)):
+  if pred[i]==test_label[i]:
+    score+=1
+print score/len(pred)
