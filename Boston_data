@@ -1,0 +1,45 @@
+from sklearn import linear_model
+from sklearn.datasets import load_boston
+import pandas as pd
+import numpy as np
+boston=load_boston()
+print boston.data
+reg=linear_model.LinearRegression()
+#print reg
+bostonrun=boston.data
+#print bostonrun[0]
+#print bostonrun[:-20]
+boston_x_train=bostonrun[:-20]
+boston_x_test=bostonrun[-20:]
+boston_y_train=boston.target[:-20]
+boston_y_test=boston.target[-20:]
+regr=reg.fit(boston_x_train, boston_y_train)
+#print regr
+boston_y_pred=regr.predict(boston_x_test)
+print type(boston_x_test)
+print boston_y_pred
+print (boston_x_test), "line 17\n"
+boston_x_test_formatted=[]
+boston_y_pred_formatted=[]
+for i in range(len(boston_x_test)):
+  boston_x_test_formatted.append(boston_x_test[i])
+for i in range(len(boston_x_test_formatted)):
+  boston_x_test_formatted[i]=sum(boston_x_test_formatted[i])
+for i in range(len(boston_y_pred)):
+  boston_y_pred_formatted.append(boston_y_pred[i])
+print (boston_x_test_formatted), "line 22\n"
+print "Boston y prediction: ", boston_y_pred, "\n"
+print 'Coefficients: ', regr.coef_
+print len(boston_x_test[0])
+print len(boston_x_test_formatted)
+with open("plot.txt", "w") as f:
+  for i in range(len(boston_x_test_formatted)):
+    f.write(str(boston_x_test_formatted[i])+"\n")
+#with open("test.txt", "w") as e:
+ # for i in range(len(boston_y_pred_formatted)):
+  #  e.write(str(boston_y_pred_formatted[i])+"\n")
+#with open("plot.txt", "w") as f:
+ # f.write(boston_y_pred)
+#reg.fit([0,1,2],[3,4,5])
+#print reg.coef_
+#print boston
